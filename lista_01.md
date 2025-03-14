@@ -18,6 +18,7 @@ d) A saída será erro em ambas as linhas que utilizam console.log
 
 Já no caso do 'y', a variável é a nível de escopo, então y só passa a existir e ter valor de 10 abaixo da linha 4 do código. Como o código printa o valor de 'y' e só depois cria o valor 'y', logo o comando está tentando printar uma variável que ainda não existe, por isso a mensagem de erro
 
+______
 **2) O seguinte código JavaScript tem um erro que impede sua execução correta. Analise e indique a opção que melhor corrige o problema. Justifique sua resposta.**
 
 ```javascript
@@ -113,7 +114,15 @@ c) ["banana", "abacaxi", "manga", "laranja"]
 
 d) ["banana", "maçã", "uva", "abacaxi", "manga"]
 
-**Resposta:** Letra C
+**Resposta:** Letra C. O comando 'splice', remove ou adiciona elementos em uma array, o método funciona da seguinte forma: array.splice (a partir de qual indíce fazer a ação, quantos indíces pegar a partir do indicado para se remover, valores de entrada). 
+
+Sendo assim, o valor '1' defini que a partir do indíce 1 é para se fazer uma ação (remover ou adicionar elementos a partir de maçã nesse caso). 
+
+O valor '2' diz para o código que iremos pegar 2 valores a partir do indice 1, ou seja os valores do indice 1 e indice 2 (nesse caso 'maçã' e 'uva' respectivamente) e remover da lista.
+
+Já as palavras que vem a seguir separada por virgulas, indicam que deve se acrescentar nesse intervalo (indice 1 e 2 do código) os novos valores ('abacaxi' e 'manga').
+
+Sendo assim o novo código será igual o da letra C.
 ______
 **6) Abaixo há duas afirmações sobre herança em JavaScript. Indique a alternativa correta e justifique sua resposta**
 
@@ -128,6 +137,18 @@ b) As duas afirmações são verdadeiras, mas a segunda não justifica a primeir
 c) A primeira afirmação é verdadeira, e a segunda é falsa.
 
 d) A primeira afirmação é falsa, e a segunda é verdadeira.
+
+**Resposta:** Letra A. No JavaScript, há o conceito de classe que é uma coisa que possui um conjunto de características e comportamentos. Esse classe possui:
+  - Atributos: característica da coisa.
+  - Métodos: funções/comportamentos.
+
+Dentro das classes há a possibilidade de se criar objetos, que são instâncias concretas da classe. E E uma das formas de se criar esses objetos é através da herança. Onde o objeto herda os atributos e métodos da 'classe mãe, pai ou super'. Para se fazer isso utilizasse o comando extends. Por exemplo:
+
+```javascript
+class ExampleScene extends Phaser.Scene
+// Estou criando uma classe chamada 'ExampleScene' que herda os atributos e métodos de uma Classe Mãe chama 'Phaser.Scene'. Dessa forma é possível chamar funções que existem em Phaser sem a necessidade de ficar reescrevendo o código.
+
+```
 ______
 **7) Dado o seguinte código. Indique a alternativa correta e justifique sua resposta.**
 
@@ -156,7 +177,6 @@ class Funcionario extends Pessoa {
 }
 ```
 
-
 I) A classe Funcionario herda de Pessoa e pode acessar os atributos nome e idade diretamente.  
 II) O método `apresentar()` da classe Funcionario sobrepõe o método `apresentar()` da classe Pessoa, mas chama o método da classe pai usando `super`.  
 III) O código não funciona corretamente, pois Funcionario não pode herdar de Pessoa como uma classe, já que o JavaScript não suporta herança de classes.
@@ -171,6 +191,11 @@ c) Apenas II é verdadeira.
 
 d) Apenas I é verdadeira.
 
+**Resposta:** Letra A. Como os atributos da classe Pessoa não estão encapsulados (privados), é possível acessar diretamente eles pela classe Funcionario que herda essas características através de 'extends', logo essa afirmação é VERDADEIRA. 
+
+Já em relação ao método apresentar, há sim uma sobreposição conhecida como Polimorfismo onde uma 'classe filha' sobrescreve um método da 'classe pai ou mãe'. Porém a função 'super' chama o método da classe pai diretamente, o que mantém a função original, adicionando apenas uma nova informação. Portanto essa afirmação é VERDADEIRA.
+
+Por último, o JavaScript aceita herança de classes através da função 'extends', logo essa afirmação é FALSA.
 ______
 
 **8) Analise as afirmações a seguir. Indique a alternativa correta e justifique sua resposta.**
@@ -186,18 +211,46 @@ c) A asserção é verdadeira e a razão é verdadeira, mas a razão não explic
 
 d) A asserção é verdadeira e a razão é verdadeira, e a razão explica a asserção.
 
+**Resposta:** Letra B. O conceito de polimorfismo é justamente pegar atributos de uma classe mãe e modificar a maneira como essa função retorna valores, priorizando primeiro o método da classe filho, e depois o método da classe mãe. Logo a sentença Asserção está CORRETA.
+
+Já o método de sobrecarga de métodos consiste em chamar o mesmo método dentro de uma classe, porém criando variações desse método dentro dessa mesma classe, com nomes iguais mas parâmetros diferentes. Para se enquadrar em polimorfismo, poderiamos chamar metódos de uma classe mãe e criar 2 variações dele dentro da classe filho, por exemplo:
+
+```javascript
+class ClasseFilho extends ClasseMãe // nesse caso não criei uma classe mãe com atributos previamente. Porém imagine de que há metodos já pré-criados anteriormente e de que estou herdando.
+
+calcularPreco (int a, int b){
+  return a + b
+}
+
+calcularPreco (string a, string b){
+  return a + b
+}
+
+// Obs: Por ser JavaScript só seria considerado o último método, havendo uma sobrescrição dos dados do método 'calcularPreco'.
+```
+
+O nome dos metódos são iguais, porém no primeiro ele só executa se o valor de entrada for 'int' enquanto no outro só aceita valores de entrada 'string'. Porém esse exemplo que dei só funciona em outras linguagens de programação, no JavaScript, ele sobrescreve o mais recente sobre o anterior. Portanto no exemplo a cima, o que seria considerado seria o último métodod. Então, a sentença Razão está INCORRETA.
+
 ______
 
 # Questões dissertativas
 9) O seguinte código deve retornar a soma do dobro dos números de um array, mas contém erros. Identifique os problema e corrija o código para que funcione corretamente. Adicione comentários ao código explicado sua solução para cada problema.
 
 ```javascript
+//soma não foi criado, logo o programa não reconhece que váriavel é essa. Por let ser uma váriavel de escopo, será necessária criar ela fora de função, para que ela exista fora da função.
+let soma = 0; 
+
 function somaArray(numeros) {
 
-    for (i = 0; i < numeros.size; i++) {
-        soma = 2*numeros[i];
+//.size não existe dentro das funções de array do JavaScript. O certo para calcular o tamanho da lista seria .length
+    for (i = 0; i < numeros.length; i++) { 
+
+// se utilizar o sinal de = ele irá atribuir um valor, não 'reatribuir' ou 'agregar'. Então usei o sinal de += para ir somando um valor a variável e ir reatribuindo novos valores e não sobrescrevendo.
+        soma += 2*numeros[i]; 
     }
-    return soma;
+
+// ao final do looping a função deve retornar o valor de soma
+    return soma; 
 }
 console.log(somaArray([1, 2, 3, 4]));
 ```
@@ -208,3 +261,32 @@ ______
 - Uma classe `Livro` que herda de `Produto` e modifica o método `calcularDesconto()`, aplicando um desconto de 20% no preço dos livros.
 
 Explique como funciona a herança nesse contexto e como você implementaria a modificação do método na classe `Livro`.
+
+```javascript
+class Produto {
+    constructor(nome, preco) {
+        this.nome = nome;
+        this.preco = preco;
+    }
+
+    calcularDesconto() {
+        return `O produto escolhido foi ${this.nome}. Com o desconto de 10%, o valor total será de R$ ${this.preco * 0.9}`;
+    }
+}
+
+// A herança nesse contexto não terá adição de novos atributos, apenas a alteração de algumas palavras no método.
+// herdei os dois atributos de produto para livro, que são nome e preço.
+class Livro extends Produto {
+    constructor(nome, preco) {
+        super(nome, preco);
+    }
+
+    // alterei o método calcularDesconto para que o desconto seja de 20% ao invés de 10%. A multiplicação por 0.8 do valor total funciona, pois é o equivalente matematicamente de 20% de desconto.
+    calcularDesconto() {
+        return `O livro escolhido foi ${this.nome}. Com o desconto de 20%, o valor total será de R$${this.preco * 0.8},00`;
+    }
+}
+
+let livro = new Livro('Antifragil', 100);
+console.log(livro.calcularDesconto());
+```
